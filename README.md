@@ -75,12 +75,12 @@ Groq API key (free at console.groq.com)
 
 1. Clone the repository
 
-bashgit clone https://github.com/bt24cs030-svg/aceit-placement-prep.git
+git clone https://github.com/bt24cs030-svg/aceit-placement-prep.git
 cd aceit-placement-prep
 
 2. Backend Setup
 
-bashcd prepai-backend
+cd prepai-backend
 npm install
 
 Create .env file:
@@ -96,7 +96,7 @@ node index.js
 
 3. Frontend Setup
 
-bashcd prepai-frontend
+cd prepai-frontend
 npm install
 npm run dev
 
