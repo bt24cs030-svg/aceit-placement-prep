@@ -92,7 +92,7 @@ PORT=4000
 
 Start backend:
 
-bashnode index.js
+node index.js
 
 3. Frontend Setup
 
