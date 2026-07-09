@@ -85,9 +85,9 @@ npm install
 
 Create .env file:
 
-MONGODB_URI=your_mongodb_connection_string
-GROQ_API_KEY=your_groq_api_key
-JWT_SECRET=your_jwt_secret
+MONGODB_URI=my_mongodb_connection_string
+GROQ_API_KEY=my_groq_api_key
+JWT_SECRET=my_jwt_secret
 PORT=4000
 
 Start backend:
