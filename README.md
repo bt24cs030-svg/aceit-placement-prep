@@ -131,7 +131,7 @@ Madhurendra Gupta
 
 
 NIT Mizoram — B.Tech Computer Science
-GitHub: @yourusername
+GitHub: bt24cs030-svg
 
 
 
