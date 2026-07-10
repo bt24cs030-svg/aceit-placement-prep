@@ -37,7 +37,7 @@ export const DMiddleComponent = ({ topics}) => {
                     <div className="bg-gray-800 rounded-full h-1.5">
                         <div
                             className="bg-green-400 h-1.5 rounded-full"
-                            style={{ width: `${(solved / total) * 100}%` }}
+                            style={{ width: `${total === 0 ? 0 : (solved / total) * 100}%` }}
                         />
                     </div>
                 </div>
