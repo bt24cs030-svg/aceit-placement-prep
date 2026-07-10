@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Mic ,Zap,TrendingUp} from "lucide-react";
+import { Mic ,TrendingUp} from "lucide-react";
 import { API_URL } from "../config";
 
 const companies = ["Google", "Microsoft", "Amazon", "Meta", "Apple"];
@@ -31,6 +31,7 @@ export default function MockInterview() {
   const [problemFeedbacks, setProblemFeedbacks] = useState({});
   const [loadingFeedback, setLoadingFeedback] = useState(false);
   const timerRef = useRef(null);
+  const submitOARef = useRef(null);
 
   const [currentRound, setCurrentRound] = useState(1);
   const [currentQ, setCurrentQ] = useState(0);
@@ -49,7 +50,7 @@ export default function MockInterview() {
         setTimeLeft((prev) => {
           if (prev <= 1) {
             clearInterval(timerRef.current);
-            submitOA();
+            submitOARef.current();
             return 0;
           }
           return prev - 1;
@@ -100,7 +101,9 @@ export default function MockInterview() {
       });
       const data = await res.json();
       setProblemFeedbacks((prev) => ({ ...prev, [idx]: data.feedback }));
-    } catch {}
+    } catch (err) {
+      console.error("Failed to get coding feedback:", err.message);
+    }
     setLoadingFeedback(false);
   };
 
@@ -116,6 +119,10 @@ export default function MockInterview() {
     setOaScore({ mcqCorrect, mcqTotal: mcqList.length, codingAttempted, totalProblems });
     setPhase("oa-result");
   };
+
+  useEffect(() => {
+    submitOARef.current = submitOA;
+  });
 
   const startInterview = async () => {
     setCurrentRound(1);
@@ -209,7 +216,6 @@ export default function MockInterview() {
     setAllRounds([]);
   };
 
-  const cfg = oaConfig[company];
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
