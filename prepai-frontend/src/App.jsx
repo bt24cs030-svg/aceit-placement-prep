@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./pages/Auth";
 import Layout from "./pages/components/Layout";
-import Sidebar from "./pages/components/Sidebar";
 import { initialTopics } from "./data/topics";
 import { API_URL } from "./config";
 
