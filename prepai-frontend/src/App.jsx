@@ -5,6 +5,7 @@ import Auth from "./pages/Auth";
 import Layout from "./pages/components/Layout";
 import Sidebar from "./pages/components/Sidebar";
 import { initialTopics } from "./data/topics";
+import { API_URL } from "./config";
 
 export default function App() {
   const [user, setUser] = useState(localStorage.getItem("userName"));
@@ -12,7 +13,7 @@ export default function App() {
 
   useEffect(() => {
     if (!user) return;
-    fetch("http://localhost:4000/dsa-progress", {
+    fetch(`${API_URL}/dsa-progress`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((res) => res.json())
