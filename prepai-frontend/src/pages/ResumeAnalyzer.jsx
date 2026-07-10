@@ -1,5 +1,31 @@
 import { useState } from "react";
-import { FileText, FolderSearch2, Bot } from "lucide-react";
+import { FileText, FolderSearch2, Bot, Star, ThumbsUp, ThumbsDown, PuzzleIcon, Lightbulb } from "lucide-react";
+import { API_URL } from "../config";
+
+const SECTION_ICONS = {
+  "Overall Score": Star,
+  "Strengths": ThumbsUp,
+  "Weaknesses": ThumbsDown,
+  "Missing Skills": PuzzleIcon,
+  "Suggestions": Lightbulb,
+};
+
+function parseFeedback(raw) {
+  const sections = raw.split(/\n(?=##\s)/).map((s) => s.trim()).filter(Boolean);
+  return sections.map((section) => {
+    const headingMatch = section.match(/^##\s*(.+?)\s*(?:\n|$)/);
+    let title = headingMatch ? headingMatch[1].replace(/:$/, "") : "Feedback";
+    const scoreMatch = title.match(/Overall Score:\s*(.+)/i);
+    const score = scoreMatch ? scoreMatch[1].trim() : null;
+    if (score) title = "Overall Score";
+    const body = section.replace(/^##.*(\n|$)/, "").trim();
+    const points = body
+      .split("\n")
+      .map((line) => line.replace(/^-+\s*/, "").trim())
+      .filter(Boolean);
+    return { title, score, points };
+  });
+}
 
 export default function ResumeAnalyzer() {
   const [file, setFile] = useState(null);
@@ -15,7 +41,7 @@ export default function ResumeAnalyzer() {
     formData.append("resume", selectedFile);
 
     try {
-      const res = await fetch("http://localhost:4000/analyze-resume", {
+      const res = await fetch(`${API_URL}/analyze-resume`, {
         method: "POST",
         body: formData,
       });
@@ -98,12 +124,41 @@ export default function ResumeAnalyzer() {
       )}
 
       {feedback && !loading && (
-        <div className="bg-gray-900 rounded-xl p-6">
-          <div className="text-xs text-green-400 font-medium mb-3">AI FEEDBACK</div>
-          <div className="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed">
-            {feedback}
+        feedback.includes("##") ? (
+          <div className="flex flex-col gap-3">
+            {parseFeedback(feedback).map((section, i) => {
+              const Icon = SECTION_ICONS[section.title] || FileText;
+              return (
+                <div key={i} className="bg-gray-900 rounded-xl p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Icon size={16} className="text-green-400" />
+                    <div className="text-sm font-semibold text-white">{section.title}</div>
+                    {section.score && (
+                      <span className="ml-auto text-sm font-bold text-green-400">{section.score}</span>
+                    )}
+                  </div>
+                  {section.points.length > 0 && (
+                    <ul className="flex flex-col gap-2">
+                      {section.points.map((point, j) => (
+                        <li key={j} className="text-gray-300 text-sm leading-relaxed flex gap-2">
+                          <span className="text-green-400 mt-0.5">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        </div>
+        ) : (
+          <div className="bg-gray-900 rounded-xl p-6">
+            <div className="text-xs text-green-400 font-medium mb-3">AI FEEDBACK</div>
+            <div className="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed">
+              {feedback}
+            </div>
+          </div>
+        )
       )}
     </div>
   );
