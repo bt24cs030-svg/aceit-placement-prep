@@ -1,7 +1,4 @@
-import { useState } from "react";
-
 export default function Analytics({ topics }) {
-  const [activeTab, setActiveTab] = useState("topics");
   const totalSolved = topics.reduce((acc, t) => acc + t.solved, 0);
   const totalProblems = topics.reduce((acc, t) => acc + t.total, 0);
   const doneCount = topics.filter((t) => t.status === "Done").length;
