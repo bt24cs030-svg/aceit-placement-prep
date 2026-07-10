@@ -23,8 +23,8 @@ export const DStartComponent = ({ solved, success }) => {
           <option key={c}>{c}</option>
         ))}
       </select>
-      <div className="grid grid-cols-3 gap-2 mb-3">
-        {[[solved, "Solved"], ["14", "Streak"], [`${success}%`, "Success"]].map(([val, label]) => (
+      <div className="grid grid-cols-2 gap-2 mb-3">
+        {[[solved, "Solved"], [`${success}%`, "Success"]].map(([val, label]) => (
           <div key={label} className="bg-gray-800 rounded-lg p-2 text-center">
             <div className="font-bold text-sm">{val}</div>
             <div className="text-xs text-gray-400">{label}</div>
