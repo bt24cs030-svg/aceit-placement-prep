@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mic ,FileText, Triangle,ArrowUp} from "lucide-react";
+import { Mic ,FileText, ArrowUp} from "lucide-react";
 
 export const DStartComponent = ({ solved, success }) => {
 
