@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "../config";
 
 export default function Auth({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -12,7 +13,7 @@ export default function Auth({ onLogin }) {
     setError("");
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:4000/${isLogin ? "login" : "register"}`, {
+      const res = await fetch(`${API_URL}/${isLogin ? "login" : "register"}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -36,7 +37,7 @@ export default function Auth({ onLogin }) {
       <div className="bg-gray-900 rounded-2xl p-8 w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="text-green-400 font-bold text-3xl mb-2">⚡ PrepAI</div>
+          <div className="text-green-400 font-bold text-3xl mb-2">⚡ AceIt</div>
           <div className="text-gray-400 text-sm">AI-Powered Placement Preparation</div>
         </div>
 
