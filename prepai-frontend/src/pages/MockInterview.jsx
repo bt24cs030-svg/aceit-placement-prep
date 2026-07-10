@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Mic ,Zap,TrendingUp} from "lucide-react";
+import { API_URL } from "../config";
 
 const companies = ["Google", "Microsoft", "Amazon", "Meta", "Apple"];
 
@@ -64,7 +65,7 @@ export default function MockInterview() {
   const startOA = async () => {
     setOaLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/generate-oa-questions", {
+      const res = await fetch(`${API_URL}/generate-oa-questions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ company }),
@@ -89,7 +90,7 @@ export default function MockInterview() {
     if (!userAnswer) return;
     setLoadingFeedback(true);
     try {
-      const res = await fetch("http://localhost:4000/get-feedback", {
+      const res = await fetch(`${API_URL}/get-feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -133,7 +134,7 @@ export default function MockInterview() {
     setFeedback("");
     setRoundSummary(null);
     try {
-      const res = await fetch("http://localhost:4000/generate-question", {
+      const res = await fetch(`${API_URL}/generate-question`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ company, type: roundInfo.type }),
@@ -151,7 +152,7 @@ export default function MockInterview() {
     setLoadingF(true);
     setFeedback("");
     try {
-      const res = await fetch("http://localhost:4000/get-feedback", {
+      const res = await fetch(`${API_URL}/get-feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, answer }),
