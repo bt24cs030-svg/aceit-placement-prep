@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Target, AlertTriangle, Zap, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { API_URL } from "../../config";
 
 export const DRightComponent = ({ topics }) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export const DRightComponent = ({ topics }) => {
   const getDailyChallenge = async () => {
     setLoadingChallenge(true);
     try {
-      const res = await fetch("http://localhost:4000/daily-challenge", {
+      const res = await fetch(`${API_URL}/daily-challenge`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
