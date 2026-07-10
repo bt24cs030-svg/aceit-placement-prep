@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { API_URL } from "../config";
 
 const statusColors = {
   "Done": "bg-green-500/20 text-green-400 border border-green-500/30",
@@ -19,7 +20,7 @@ export default function DSAPractice({ topics, setTopics }) {
 
   // Save to database
   const saveProgress = async () => {
-    await fetch("http://localhost:4000/dsa-progress", {
+    await fetch(`${API_URL}/dsa-progress`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
